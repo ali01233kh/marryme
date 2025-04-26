@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marriage Proposal</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffe6e6;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        h1 {
+            color: #d11d53;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .yes-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .no-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        img {
+            max-width: 200px;
+            margin-top: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="initialScreen">
+        <h1>Do you marry me? <br> هل تتزوجيني؟</h1>
+        <img src="https://via.placeholder.com/200x200.gif?text=First+GIF" alt="First GIF" id="firstGif">
+        <div class="buttons">
+            <button class="yes-button" onclick="handleYesClick()">YES</button>
+            <button class="no-button" onclick="handleNoClick()">No</button>
+        </div>
+    </div>
+    <div id="successScreen" class="hidden">
+        <h1>Knew you would say yes!</h1>
+        <img src="https://via.placeholder.com/200x200.gif?text=Second+GIF" alt="Second GIF" id="secondGif">
+    </div>
+
+    <script>
+        const messages = ["No?", "Still No?", "Are you sure?", "Last chance!", "You can't escape!"];
+        let messageIndex = 0;
+        let fontSizeMultiplier = 1;
+
+        const noButton = document.querySelector(".no-button");
+        const yesButton = document.querySelector(".yes-button");
+        const initialScreen = document.getElementById("initialScreen");
+        const successScreen = document.getElementById("successScreen");
+
+        function handleNoClick() {
+            noButton.textContent = messages[messageIndex];
+            messageIndex = (messageIndex + 1) % messages.length;
+
+            fontSizeMultiplier += 0.5;
+            const currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
+            yesButton.style.fontSize = `${currentSize * fontSizeMultiplier}px`;
+
+            if (messageIndex === messages.length - 1) {
+                noButton.classList.add("hidden");
+            }
+        }
+
+        function handleYesClick() {
+            initialScreen.classList.add("hidden");
+            successScreen.classList.remove("hidden");
+        }
+    </script>
+</body>
+</html>
